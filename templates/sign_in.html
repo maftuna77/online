@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div style="position:relative; width:600px;  left:400px; bottom:120px;">
+    <form action="" method="post">
+        <div class="box" style="position:relative; background-color:rgba(0, 255, 255, 0.175);">
+            <div class="has-text-centered title is-3">
+                Sign in
+            </div>
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="field">
+                <label for="field.id_for_label" class="label">{{ field.label }}</label>
+                {{ field }}
+            </div>
+            {% endfor %}
+            <button class="button is-primary is-fullwidth my-1">Submit</button>
+            <div class="has-text-centered" style="position:relative; top:10px;">
+                Don't have an account? <a href="{% url 'sign_up' %}">Sign up here</a>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,132 @@
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'css/btn.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.3/dist/css/bulma-carousel.min.css">
+
+</head>
+
+<body>
+    <section class="hero">
+        <div class="hero-head">
+            <nav class="navbar" role="navigation" aria-label="main navigation">
+                <div class="navbar-brand">
+                    <a class="navbar-item" href="{% url 'product_list' %}">
+                        <img src="https://mondaylabs.ru/static/img/logo-monday.svg" width="112" height="28">
+                    </a>
+                    {% if cart_item %}
+                    <a href="{% url 'create_order' %}" class="button has-text-right is-info">Checkout</a>
+                    {% endif %}
+
+                    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+                        data-target="navbarBasicExample">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+
+                <div id="navbarBasicExample" class="navbar-menu">
+                    <div class="navbar-start">
+                        {% for brand in brands %}
+                        <a href="{% url 'product_list' %}?brand={{ brand.pk }}" class="navbar-item">
+                            {{ brand }}
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="navbar-end">
+
+                    <a href="" class="navbar-item is-warning my-4 mx-1">
+                        Welcome {{ user }}
+                    </a>
+
+
+                    <form action="{% url 'product_list' %}" method="get">
+                        <div class="field has-addons">
+                            <div class="control">
+                                <input type="search" class="input" name="search">
+                            </div>
+                            <div class="control">
+                                <button type="submit" class="button is-info">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                    <a href="{% url 'orders' %}" class="navbar-item order">
+                        <button class="button is-dark">
+                            Orders
+                        </button>
+                    </a>
+                    <a href="{% url 'cart' %}" class="navber-item order">
+                        <button class="button is-success">
+                            <ion-icon name="cart-i=outline" class="mr-2"></ion-icon>
+                            Cart
+                        </button>
+                    </a>
+                    <span class="navbar-item">
+                        <div class="dropdown is-hoverable">
+                            <div class="dropdown-trigger">
+                                <button class="button is-warning" aria-haspopup="true" aria-controls="dropdown-menu">
+                                    Welcome <span class="has-text-weight-bold mx-1">{{ user }}</span>
+                                </button>
+                            </div>
+                            <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                                <div class="dropdown-content">
+                                    <a href="{% url 'edit_profile' %}" class="dropdown-item">
+                                        Edit profile
+                                    </a>
+                                    <a href="{% url 'reset_password' %}" class="dropdown-item">
+                                        Reset password
+                                    </a>
+                                    <hr class="dropdown-divider">
+                                    <a href="{% url 'sign_out' %}" class="dropdown-item">
+                                        Sign out
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </span>
+
+                </div>
+
+
+
+            </nav>
+        </div>
+        <div class="hero-body">
+            {% block auth %}
+            {% endblock %}
+
+            {% block slider %}
+            {% endblock %}
+
+            {% block content %}
+            {% endblock %}
+
+
+        </div>
+    </section>
+
+
+
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.3/dist/js/bulma-carousel.min.js"></script>
+    <script>
+        bulmaCarousel.attach('#carousel-demo', {
+            slidesToScroll: 1,
+            slidesToShow: 1,
+            infinite: true,
+        })
+    </script>
+
+
+
+</body>
+
+</html>
